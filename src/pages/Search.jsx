@@ -68,9 +68,12 @@ function Search() {
                     >
                         <div className="row g-0">
                             {movies.map((movie) => (
-                                <div className="col-lg-3 col-md-4 col-sm-6 col-12">
+                                <div
+                                    className="col-lg-3 col-md-4 col-sm-6 col-12"
+                                    key={movie.id}
+                                >
                                     <div className="d-flex justify-content-center m-2">
-                                        <Movie id={movie.id} key={movie.id} />
+                                        <Movie movie={movie} />
                                     </div>
                                 </div>
                             ))}
