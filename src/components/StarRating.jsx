@@ -1,22 +1,18 @@
-import ReactStars from "react-rating-stars-component";
+import { Rating, RoundedStar } from "@smastrom/react-rating";
 import React from "react";
 
-function StarRating({ setRating, setPage }) {
-    const ratingChanged = (newRating) => {
-        setRating(newRating * 2 - 2);
+function StarRating({ rating, setRating, setPage }) {
+    const handleChange = (selectedValue) => {
+        setRating(selectedValue);
         setPage(1);
     };
 
     return (
-        <ReactStars
-            count={5}
-            onChange={ratingChanged}
-            size={35}
-            isHalf={true}
-            emptyIcon={<i className="far fa-star"></i>}
-            halfIcon={<i className="fa fa-star-half-alt"></i>}
-            fullIcon={<i className="fa fa-star"></i>}
-            activeColor="#ffd700"
+        <Rating
+            style={{ maxWidth: 500 }}
+            value={rating}
+            items={10}
+            onChange={handleChange}
         />
     );
 }

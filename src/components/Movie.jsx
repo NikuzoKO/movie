@@ -2,24 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-function Movie({ id }) {
-    const [movie, setMovie] = useState(null);
-
-    useEffect(() => {
-        const getMovie = async () => {
-            const response = await axios({
-                url: `https://api.themoviedb.org/3/movie/${id}
-                }`,
-                method: "GET",
-                params: {
-                    api_key: import.meta.env.VITE_TMDB_API_KEY,
-                },
-            });
-            setMovie(response.data);
-        };
-        getMovie();
-    }, []);
-
+function Movie({ movie }) {
     return (
         movie && (
             <Link to={`/movie/${movie.id}`}>

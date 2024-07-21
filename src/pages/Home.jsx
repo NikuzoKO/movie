@@ -26,7 +26,11 @@ function Home() {
                 </div>
             </div>
             <div className="container d-flex justify-content-center">
-                <StarRating setRating={setRating} setPage={setPage} />
+                <StarRating
+                    rating={rating}
+                    setRating={setRating}
+                    setPage={setPage}
+                />
             </div>
             <div className="container">
                 <MovieList rating={rating} page={page} setPage={setPage} />

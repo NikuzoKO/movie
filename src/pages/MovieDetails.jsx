@@ -23,35 +23,36 @@ function MovieDetails() {
     }, [id]);
 
     useEffect(() => {
-        const getImages = async () => {
-            const response = await axios({
-                url: `https://api.themoviedb.org/3/movie/${movie.id}/images`,
-                method: "GET",
-                params: {
-                    language: "null",
-                    api_key: import.meta.env.VITE_TMDB_API_KEY,
-                },
-            });
-            setImages(response.data);
-        };
-        getImages();
-    }, [movie]);
-
-    useEffect(() => {
-        const getTrailer = async () => {
-            const response = await axios({
-                url: `https://api.themoviedb.org/3/movie/${movie.id}/videos`,
-                method: "GET",
-                params: {
-                    language: "en-US",
-                    api_key: import.meta.env.VITE_TMDB_API_KEY,
-                },
-            });
-            setTrailer(
-                response.data.results.find((video) => video.type === "Trailer")
-            );
-        };
-        getTrailer();
+        if (movie) {
+            const getImages = async () => {
+                const response = await axios({
+                    url: `https://api.themoviedb.org/3/movie/${movie.id}/images`,
+                    method: "GET",
+                    params: {
+                        language: "null",
+                        api_key: import.meta.env.VITE_TMDB_API_KEY,
+                    },
+                });
+                setImages(response.data);
+            };
+            getImages();
+            const getTrailer = async () => {
+                const response = await axios({
+                    url: `https://api.themoviedb.org/3/movie/${movie.id}/videos`,
+                    method: "GET",
+                    params: {
+                        language: "en-US",
+                        api_key: import.meta.env.VITE_TMDB_API_KEY,
+                    },
+                });
+                setTrailer(
+                    response.data.results.find(
+                        (video) => video.type === "Trailer"
+                    )
+                );
+            };
+            getTrailer();
+        }
     }, [movie]);
 
     return (
@@ -88,7 +89,10 @@ function MovieDetails() {
                         <div className="row g-0">
                             {images.backdrops.map((image) => {
                                 return (
-                                    <div className="col-lg-3 col-md-4 col-sm-6 col-12">
+                                    <div
+                                        className="col-lg-3 col-md-4 col-sm-6 col-12"
+                                        key={image.file_path}
+                                    >
                                         <img
                                             src={`http://image.tmdb.org/t/p/original${image.file_path}`}
                                             alt={movie.title}
